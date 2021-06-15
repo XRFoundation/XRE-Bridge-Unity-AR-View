@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3d0c2b813a2c844abbb2a9b45960f38, type: 3}
+  m_Name: DownloadSettings
+  m_EditorClassIdentifier: 
+  downloadFileList: {fileID: 11400000, guid: 9b221b5b293132f47b17e3ede0a0f5aa, type: 2}
+  cacheFolder: files
+  serverPath: https://s3.us-east-2.amazonaws.com/volumefiles/
+  intDownloadQueueSize: 4

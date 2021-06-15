@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daabdd83b50ab9b4cbd44b7fad2d15f8, type: 3}
+  m_Name: DownloadFileList
+  m_EditorClassIdentifier: 
+  dataFileList:
+  - enumFileType: 1
+    fileName: LilFreaky_WatchYourStep.4ds
+    sizeInBytes: 3752826847
+    CRC: 
+  - enumFileType: 1
+    fileName: ManoloRose_IGetMoney.4ds
+    sizeInBytes: 3158075455
+    CRC: 
+  - enumFileType: 1
+    fileName: ManoloRose_IGetMoney_Placement.4ds
+    sizeInBytes: 120075918
+    CRC: 
+  - enumFileType: 1
+    fileName: KCamp_Wifi.4ds
+    sizeInBytes: 2719915771
+    CRC: 
