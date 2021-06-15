@@ -1,0 +1,2 @@
+# xr-backend-unity
+Bind your web app to a Unity native AR view with AR Foundation and Capacitor
