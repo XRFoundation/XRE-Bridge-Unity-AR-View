@@ -18,10 +18,10 @@ QualitySettings:
     shadowCascade2Split: 0.50272834
     shadowCascade4Split: {x: 0.56767493, y: 0.7310617, z: 0.8570437}
     shadowmaskMode: 0
-    blendWeights: 1
+    skinWeights: 1
     textureQuality: 0
     anisotropicTextures: 1
-    antiAliasing: 2
+    antiAliasing: 0
     softParticles: 0
     softVegetation: 1
     realtimeReflectionProbes: 0
@@ -38,7 +38,9 @@ QualitySettings:
     particleRaycastBudget: 2
     asyncUploadTimeSlice: 2
     asyncUploadBufferSize: 4
+    asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
+    customRenderPipeline: {fileID: 0}
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
     Android: 0
