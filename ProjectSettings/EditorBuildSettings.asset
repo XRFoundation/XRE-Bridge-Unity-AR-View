@@ -6,12 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/URP/Scenes_URP/ARScene.unity
+    path: Assets/URP/Scenes_URP/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   m_configObjects:
-    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 79d9318795dbc46fe968651d18703bb5,
-      type: 2}
-    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: a5e5695eaeb254f419041e7b184f4ba7,
-      type: 2}
-    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 0a009a0a4564b49f4bbc33909fe907f5,
-      type: 2}
+    UnityEditor.XR.ARCore.ARCoreSettings: {fileID: 11400000, guid: 7eb0b479e81ca4144bf366c8f6a30357, type: 2}
+    UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: c60198d6bc3924fd3be7a0e04759092e, type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 5336eee238f184d76bc47ac96b2a6e89, type: 2}
