@@ -14,6 +14,7 @@ public class ActorController : MonoBehaviour
 
     [SerializeField]
     GameObject anchor;
+    public PinchRotationSample _pinch;
 
     public bool isPlaced;
 
@@ -71,6 +72,8 @@ public class ActorController : MonoBehaviour
 
     void Start()
     {
+        _pinch.target = anchor.transform;
+
         GraphicsSettings.lightsUseLinearIntensity = true;
         GraphicsSettings.lightsUseColorTemperature = true;
 
