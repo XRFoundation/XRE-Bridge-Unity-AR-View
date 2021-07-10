@@ -1,0 +1,23 @@
+
+NativeiOSAppExample uses UVolPlayer.mm (with UnityFramework) to play AR holograms 
+Look at its MainViewController.mm to see how
+
+Installation
+Drag this file's enclosing folder into your iOS project folder, next to your .xcodeproj file
+
+Open your native iOS app in Xcode
+
+Double-click uVolBuildPrep.command #maybe first chmod u+x uVolBuildPrep.command
+
+
+
+
+To Open and Play drcs or .uvol file
+You can test Play("http://wildcapture.co/liam.drcs") directory must also have filename.mp4 and filename.manifest
+PlayPauseToggle()
+Seek(precent)
+ARPlace("x, y")//Position from screen coordinates
+
+Because this is http you'll need to update info.plist
+  Add App Transport Security Settings
+  Inside, add Allow Arbitrary Loads set to YES 
