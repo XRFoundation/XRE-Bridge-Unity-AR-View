@@ -24,12 +24,15 @@ namespace NatSuite.Examples {
         private AudioSource microphoneSource;
 
         public static ReplayCam instance;
+        public Canvas _maincanvas;
 
         public void Awake(){
             instance = this;
         }
 
         private IEnumerator Start () {
+            
+
             // Start microphone
             microphoneSource = gameObject.AddComponent<AudioSource>();
             microphoneSource.mute =
