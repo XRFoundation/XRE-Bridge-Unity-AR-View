@@ -14,25 +14,31 @@ public class VideoPlayerManager : MonoBehaviour
     public VideoPlayer VideoPlayer;
 	public RawImage VideoDisplay;
 	public Image _ButtonImage;
-    public Sprite _play, _pause;
+	public Sprite _play, _pause;
+    public Slider _slider;
 
-    private void OnEnable()
-    {
-        if (String.IsNullOrEmpty(VideoPath))
-            return;
-        if(VideoWidth == 0 || VideoHeight == 0)
-            return;
-        
-        
-        VideoPlayer.url = VideoPath;
-        var texture = new RenderTexture(VideoWidth, VideoHeight, 24);
-        VideoDisplay.texture = texture;
-        VideoPlayer.targetTexture = texture;
-        VideoPlayer.Play();
+	private void OnEnable()
+	{
+		if (String.IsNullOrEmpty(VideoPath))
+			return;
+		if (VideoWidth == 0 || VideoHeight == 0)
+			return;
 
-    }
 
-    private void OnDisable()
+		VideoPlayer.url = VideoPath;
+		var texture = new RenderTexture(VideoWidth, VideoHeight, 24);
+		VideoDisplay.texture = texture;
+		VideoPlayer.targetTexture = texture;
+		VideoPlayer.Play();
+
+	}
+
+	private void Update()
+	{
+		//_slider.value = (float)(VideoPlayer.time / VideoPlayer.length) ;
+	}
+
+	private void OnDisable()
     {
         VideoPath = "";
         VideoPlayer.Stop();
@@ -53,4 +59,17 @@ public class VideoPlayerManager : MonoBehaviour
           
     }
 
+    public void VideoSlider(Single sliderValue)
+    {
+       // VideoPlayer.time = sliderValue * VideoPlayer.length;
+    }
+
+    public void ShareVideo()
+    {
+        new NativeShare().AddFile( VideoPath )
+            .SetSubject( "Subject goes here" ).SetText( "Hello world!" )
+            .SetCallback( ( result, shareTarget ) => Debug.Log( "Share result: " + result + ", selected app: " + shareTarget ) )
+            .Share();
+    }
+    
 }
