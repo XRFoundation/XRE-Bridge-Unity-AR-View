@@ -7,212 +7,212 @@ using TMPro;
 /// </summary>
 public class PinchRotationSample : SampleBase
 {
-	public Transform target;
-	public Material rotationMaterial;
-	public Material pinchMaterial;
-	public Material pinchAndRotationMaterial;
+    public Transform target;
+    public Material rotationMaterial;
+    public Material pinchMaterial;
+    public Material pinchAndRotationMaterial;
 	public float pinchScaleFactor = 0.001f;
-	public TMP_Text _scaletext;
+    public TMP_Text _scaletext;
 
-	Material originalMaterial;
+    Material originalMaterial;
 
-	#region Input Mode
+    #region Input Mode
 
-	public enum InputMode
-	{
-		PinchOnly,
-		RotationOnly,
-		PinchAndRotation
-	}
+    public enum InputMode
+    {
+        PinchOnly,
+        RotationOnly,
+        PinchAndRotation
+    }
 
-	InputMode inputMode = InputMode.PinchAndRotation;
+    InputMode inputMode = InputMode.PinchAndRotation;
 
-	#endregion
+    #endregion
 
-	#region Setup
+    #region Setup
 
-	protected override string GetHelpText()
-	{
-		return @"This sample demonstrates how to use the two-fingers Pinch and Rotation gesture events to control the scale and orientation of a rectangle on the screen
+    protected override string GetHelpText()
+    {
+        return @"This sample demonstrates how to use the two-fingers Pinch and Rotation gesture events to control the scale and orientation of a rectangle on the screen
 
 - Pinch: move two fingers closer or further apart to change the scale of the rectangle
 - Rotation: twist two fingers in a circular motion to rotate the rectangle
 
 ";
-	}
-	protected override void Start()
-	{
-		base.Start();
+    }
+    protected override void Start()
+    {
+        base.Start();
 
-		UI.StatusText = "Use two fingers anywhere on the screen to rotate and scale the green object.";
+        UI.StatusText = "Use two fingers anywhere on the screen to rotate and scale the green object.";
 
-		// originalMaterial = target.GetComponent<Renderer>().sharedMaterial;
-	}
+       // originalMaterial = target.GetComponent<Renderer>().sharedMaterial;
+    }
 
-	#endregion
+    #endregion
 
-	#region Events registeration
+    #region Events registeration
 
-	void OnEnable()
-	{
-		FingerGestures.OnRotationBegin += FingerGestures_OnRotationBegin;
-		FingerGestures.OnRotationMove += FingerGestures_OnRotationMove;
-		FingerGestures.OnRotationEnd += FingerGestures_OnRotationEnd;
+    void OnEnable()
+    {
+        FingerGestures.OnRotationBegin += FingerGestures_OnRotationBegin;
+        FingerGestures.OnRotationMove += FingerGestures_OnRotationMove;
+        FingerGestures.OnRotationEnd += FingerGestures_OnRotationEnd;
 
-		FingerGestures.OnPinchBegin += FingerGestures_OnPinchBegin;
-		FingerGestures.OnPinchMove += FingerGestures_OnPinchMove;
-		FingerGestures.OnPinchEnd += FingerGestures_OnPinchEnd;
+        FingerGestures.OnPinchBegin += FingerGestures_OnPinchBegin;
+        FingerGestures.OnPinchMove += FingerGestures_OnPinchMove;
+        FingerGestures.OnPinchEnd += FingerGestures_OnPinchEnd;
+        
+    }
 
-	}
+    void OnDisable()
+    {
+        FingerGestures.OnRotationBegin -= FingerGestures_OnRotationBegin;
+        FingerGestures.OnRotationMove -= FingerGestures_OnRotationMove;
+        FingerGestures.OnRotationEnd -= FingerGestures_OnRotationEnd;
 
-	void OnDisable()
-	{
-		FingerGestures.OnRotationBegin -= FingerGestures_OnRotationBegin;
-		FingerGestures.OnRotationMove -= FingerGestures_OnRotationMove;
-		FingerGestures.OnRotationEnd -= FingerGestures_OnRotationEnd;
+        FingerGestures.OnPinchBegin -= FingerGestures_OnPinchBegin;
+        FingerGestures.OnPinchMove -= FingerGestures_OnPinchMove;
+        FingerGestures.OnPinchEnd -= FingerGestures_OnPinchEnd;
+    }
 
-		FingerGestures.OnPinchBegin -= FingerGestures_OnPinchBegin;
-		FingerGestures.OnPinchMove -= FingerGestures_OnPinchMove;
-		FingerGestures.OnPinchEnd -= FingerGestures_OnPinchEnd;
-	}
+    #endregion
 
-	#endregion
+    #region Rotation gesture
 
-	#region Rotation gesture
+    bool rotating = false;
+    bool Rotating
+    {
+        get { return rotating; }
+        set
+        {
+            if( rotating != value )
+            {
+                rotating = value;
+                UpdateTargetMaterial();
+            }
+        }
+    }
 
-	bool rotating = false;
-	bool Rotating
-	{
-		get { return rotating; }
-		set
-		{
-			if (rotating != value)
-			{
-				rotating = value;
-				UpdateTargetMaterial();
-			}
-		}
-	}
+    public bool RotationAllowed
+    {
+        get { return inputMode == InputMode.RotationOnly || inputMode == InputMode.PinchAndRotation; }
+    }
 
-	public bool RotationAllowed
-	{
-		get { return inputMode == InputMode.RotationOnly || inputMode == InputMode.PinchAndRotation; }
-	}
+    void FingerGestures_OnRotationBegin( Vector2 fingerPos1, Vector2 fingerPos2 )
+    {
+        if( RotationAllowed && target != null)
+        {
+            UI.StatusText = "Rotation gesture started.";
 
-	void FingerGestures_OnRotationBegin(Vector2 fingerPos1, Vector2 fingerPos2)
-	{
-		if (RotationAllowed && target != null)
-		{
-			UI.StatusText = "Rotation gesture started.";
+            Rotating = true;
+        }
+    }
 
-			Rotating = true;
-		}
-	}
+    void FingerGestures_OnRotationMove( Vector2 fingerPos1, Vector2 fingerPos2, float rotationAngleDelta )
+    {
+        if( Rotating && target != null)
+        {
+            UI.StatusText = "Rotation updated by " + rotationAngleDelta + " degrees";
 
-	void FingerGestures_OnRotationMove(Vector2 fingerPos1, Vector2 fingerPos2, float rotationAngleDelta)
-	{
-		if (Rotating && target != null)
-		{
-			UI.StatusText = "Rotation updated by " + rotationAngleDelta + " degrees";
+            // apply a rotation around the Z axis by rotationAngleDelta degrees on our target object
+            target.Rotate( 0, -rotationAngleDelta, 0 );
+        }
+    }
 
-			// apply a rotation around the Z axis by rotationAngleDelta degrees on our target object
-			target.Rotate(0, -rotationAngleDelta, 0);
-		}
-	}
+    void FingerGestures_OnRotationEnd( Vector2 fingerPos1, Vector2 fingerPos2, float totalRotationAngle )
+    {
+        if( Rotating && target != null)
+        {
+            UI.StatusText = "Rotation gesture ended. Total rotation: " + totalRotationAngle;
 
-	void FingerGestures_OnRotationEnd(Vector2 fingerPos1, Vector2 fingerPos2, float totalRotationAngle)
-	{
-		if (Rotating && target != null)
-		{
-			UI.StatusText = "Rotation gesture ended. Total rotation: " + totalRotationAngle;
+            Rotating = false;
+        }
+    }
 
-			Rotating = false;
-		}
-	}
+    #endregion
 
-	#endregion
+    #region Pinch Gesture
 
-	#region Pinch Gesture
+    bool pinching = false;
+    bool Pinching
+    {
+        get { return pinching; }
+        set
+        {
+            if( pinching != value )
+            {
+                pinching = value;
+               // UpdateTargetMaterial();
+            }
+        }
+    }
 
-	bool pinching = false;
-	bool Pinching
-	{
-		get { return pinching; }
-		set
-		{
-			if (pinching != value)
-			{
-				pinching = value;
-				// UpdateTargetMaterial();
-			}
-		}
-	}
+    public bool PinchAllowed
+    {
+        get { return inputMode == InputMode.PinchOnly || inputMode == InputMode.PinchAndRotation; }
+    }
 
-	public bool PinchAllowed
-	{
-		get { return inputMode == InputMode.PinchOnly || inputMode == InputMode.PinchAndRotation; }
-	}
+    void FingerGestures_OnPinchBegin( Vector2 fingerPos1, Vector2 fingerPos2 )
+    {
+        if (target == null)
+            return;
 
-	void FingerGestures_OnPinchBegin(Vector2 fingerPos1, Vector2 fingerPos2)
-	{
-		if (target == null)
-			return;
+        if( !PinchAllowed )
+            return;
 
-		if (!PinchAllowed)
-			return;
+        Pinching = true;
+    }
 
-		Pinching = true;
-	}
-
-	void FingerGestures_OnPinchMove(Vector2 fingerPos1, Vector2 fingerPos2, float delta)
-	{
-		if (Pinching && target != null)
-		{
+    void FingerGestures_OnPinchMove( Vector2 fingerPos1, Vector2 fingerPos2, float delta )
+    {
+        if( Pinching && target != null)
+        {
 
 			// change the scale of the target based on the pinch delta value
 			target.transform.localScale += delta * pinchScaleFactor * Vector3.one * Time.deltaTime;
-			//  int value = (int)target.transform.localScale.x;
-			_scaletext.text = System.Math.Round(target.transform.localScale.x, 2) * 100 + "%";
-		}
-	}
+          //  int value = (int)target.transform.localScale.x;
+            _scaletext.text = System.Math.Round(target.transform.localScale.x, 2) * 100 + "%"; 
+        }
+    }
 
-	void FingerGestures_OnPinchEnd(Vector2 fingerPos1, Vector2 fingerPos2)
-	{
-		if (Pinching && target != null)
-		{
-			Pinching = false;
-			_scaletext.text = "";
-		}
-	}
+    void FingerGestures_OnPinchEnd( Vector2 fingerPos1, Vector2 fingerPos2 )
+    {
+        if( Pinching && target != null)
+        {
+            Pinching = false;
+            _scaletext.text = "";
+        }
+    }
 
-	#endregion
+    #endregion
 
-	#region Misc 
+    #region Misc 
 
-	void UpdateTargetMaterial()
-	{
-		Material m;
+    void UpdateTargetMaterial()
+    {
+        Material m;
 
-		if (pinching && rotating)
-			m = pinchAndRotationMaterial;
-		else if (pinching)
-			m = pinchMaterial;
-		else if (rotating)
-			m = rotationMaterial;
-		else
-			m = originalMaterial;
+        if( pinching && rotating )
+            m = pinchAndRotationMaterial;
+        else if( pinching )
+            m = pinchMaterial;
+        else if( rotating )
+            m = rotationMaterial;
+        else
+            m = originalMaterial;
 
-		target.GetComponent<Renderer>().sharedMaterial = m;
-	}
+        target.GetComponent<Renderer>().sharedMaterial = m;
+    }
 
-	#endregion
+    #endregion
 
-	#region GUI
+    #region GUI
 
-	public Rect inputModeButtonRect;
+    public Rect inputModeButtonRect;
 
 
-	/*
+    /*
     void OnGUI()
     {
         //SampleUI.ApplyVirtualScreen();
@@ -244,5 +244,5 @@ public class PinchRotationSample : SampleBase
         }
     }
     */
-	#endregion
+    #endregion
 }
