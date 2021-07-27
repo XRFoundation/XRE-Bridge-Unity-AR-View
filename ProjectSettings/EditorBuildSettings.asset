@@ -10,7 +10,13 @@ EditorBuildSettings:
     path: Assets/Main.unity
     guid: e02e3db0dd0bf4c66a4a6c7b92b07554
   - enabled: 1
-    path: Assets/Scenes/ARScene.unity
+    path: Assets/URP/Scenes_URP/SampleScene_Postprocessing.unity
+    guid: b1802f2d6e7bd406e8c9660c9b34e650
+  - enabled: 1
+    path: Assets/URP/Scenes_URP/Ar_Occlusion.unity
+    guid: d38431d46ebc84420abcb3d24c085764
+  - enabled: 1
+    path: Assets/URP/Scenes_URP/SampleScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
   - enabled: 0
     path: Assets/NatSuite/Examples/WebCam/WebCam.unity
