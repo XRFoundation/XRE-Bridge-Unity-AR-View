@@ -1,67 +1,149 @@
-﻿#if UNITY_IOS
+﻿using System.IO;
 using UnityEditor;
+using UnityEngine;
+#if UNITY_IOS
 using UnityEditor.Callbacks;
-using System.IO;
 using UnityEditor.iOS.Xcode;
 #endif
 
-public class NGPostProcessBuild
+namespace NativeGalleryNamespace
 {
-	private const bool ENABLED = true;
-
-	private const string PHOTO_LIBRARY_USAGE_DESCRIPTION = "Save media to Photos";
-	private const bool MINIMUM_TARGET_8_OR_ABOVE = false;
-
-#if UNITY_IOS
-#pragma warning disable 0162
-	[PostProcessBuild]
-	public static void OnPostprocessBuild( BuildTarget target, string buildPath )
+	[System.Serializable]
+	public class Settings
 	{
-		if( !ENABLED )
-			return;
+		private const string SAVE_PATH = "ProjectSettings/NativeGallery.json";
 
-		if( target == BuildTarget.iOS )
+		public bool AutomatedSetup = true;
+#if !UNITY_2018_1_OR_NEWER
+		public bool MinimumiOSTarget8OrAbove = false;
+#endif
+		public string PhotoLibraryUsageDescription = "The app requires access to Photos to interact with it.";
+		public string PhotoLibraryAdditionsUsageDescription = "The app requires access to Photos to save media to it.";
+		public bool DontAskLimitedPhotosPermissionAutomaticallyOnIos14 = true; // See: https://mackuba.eu/2020/07/07/photo-library-changes-ios-14/
+
+		private static Settings m_instance = null;
+		public static Settings Instance
 		{
-			string pbxProjectPath = PBXProject.GetPBXProjectPath( buildPath );
-			string plistPath = Path.Combine( buildPath, "Info.plist" );
+			get
+			{
+				if( m_instance == null )
+				{
+					try
+					{
+						if( File.Exists( SAVE_PATH ) )
+							m_instance = JsonUtility.FromJson<Settings>( File.ReadAllText( SAVE_PATH ) );
+						else
+							m_instance = new Settings();
+					}
+					catch( System.Exception e )
+					{
+						Debug.LogException( e );
+						m_instance = new Settings();
+					}
+				}
 
-			PBXProject pbxProject = new PBXProject();
-			pbxProject.ReadFromFile( pbxProjectPath );
+				return m_instance;
+			}
+		}
 
-#if UNITY_2019_3_OR_NEWER
-			string targetGUID = pbxProject.GetUnityFrameworkTargetGuid();
-#else
-			string targetGUID = pbxProject.TargetGuidByName( PBXProject.GetUnityTargetName() );
+		public void Save()
+		{
+			File.WriteAllText( SAVE_PATH, JsonUtility.ToJson( this, true ) );
+		}
+
+#if UNITY_2018_3_OR_NEWER
+		[SettingsProvider]
+		public static SettingsProvider CreatePreferencesGUI()
+		{
+			return new SettingsProvider( "Project/yasirkula/Native Gallery", SettingsScope.Project )
+			{
+				guiHandler = ( searchContext ) => PreferencesGUI(),
+				keywords = new System.Collections.Generic.HashSet<string>() { "Native", "Gallery", "Android", "iOS" }
+			};
+		}
 #endif
 
-			if( MINIMUM_TARGET_8_OR_ABOVE )
-			{
-				pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework Photos" );
-				pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework MobileCoreServices" );
-				pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework ImageIO" );
-			}
-			else
-			{
-				pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-weak_framework Photos" );
-				pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework AssetsLibrary" );
-				pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework MobileCoreServices" );
-				pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework ImageIO" );
-			}
+#if !UNITY_2018_3_OR_NEWER
+		[PreferenceItem( "Native Gallery" )]
+#endif
+		public static void PreferencesGUI()
+		{
+			EditorGUI.BeginChangeCheck();
 
-			pbxProject.RemoveFrameworkFromProject( targetGUID, "Photos.framework" );
+			Instance.AutomatedSetup = EditorGUILayout.Toggle( "Automated Setup", Instance.AutomatedSetup );
 
-			File.WriteAllText( pbxProjectPath, pbxProject.WriteToString() );
+			EditorGUI.BeginDisabledGroup( !Instance.AutomatedSetup );
+#if !UNITY_2018_1_OR_NEWER
+			Instance.MinimumiOSTarget8OrAbove = EditorGUILayout.Toggle( "Deployment Target Is 8.0 Or Above", Instance.MinimumiOSTarget8OrAbove );
+#endif
+			Instance.PhotoLibraryUsageDescription = EditorGUILayout.DelayedTextField( "Photo Library Usage Description", Instance.PhotoLibraryUsageDescription );
+			Instance.PhotoLibraryAdditionsUsageDescription = EditorGUILayout.DelayedTextField( "Photo Library Additions Usage Description", Instance.PhotoLibraryAdditionsUsageDescription );
+			Instance.DontAskLimitedPhotosPermissionAutomaticallyOnIos14 = EditorGUILayout.Toggle( new GUIContent( "Don't Ask Limited Photos Permission Automatically", "See: https://mackuba.eu/2020/07/07/photo-library-changes-ios-14/. It's recommended to keep this setting enabled" ), Instance.DontAskLimitedPhotosPermissionAutomaticallyOnIos14 );
+			EditorGUI.EndDisabledGroup();
 
-			PlistDocument plist = new PlistDocument();
-			plist.ReadFromString( File.ReadAllText( plistPath ) );
-
-			PlistElementDict rootDict = plist.root;
-			rootDict.SetString( "NSPhotoLibraryUsageDescription", PHOTO_LIBRARY_USAGE_DESCRIPTION );
-			rootDict.SetString( "NSPhotoLibraryAddUsageDescription", PHOTO_LIBRARY_USAGE_DESCRIPTION );
-
-			File.WriteAllText( plistPath, plist.WriteToString() );
+			if( EditorGUI.EndChangeCheck() )
+				Instance.Save();
 		}
 	}
-#pragma warning restore 0162
+
+	public class NGPostProcessBuild
+	{
+#if UNITY_IOS
+		[PostProcessBuild( 1 )]
+		public static void OnPostprocessBuild( BuildTarget target, string buildPath )
+		{
+			if( !Settings.Instance.AutomatedSetup )
+				return;
+
+			if( target == BuildTarget.iOS )
+			{
+				string pbxProjectPath = PBXProject.GetPBXProjectPath( buildPath );
+				string plistPath = Path.Combine( buildPath, "Info.plist" );
+
+				PBXProject pbxProject = new PBXProject();
+				pbxProject.ReadFromFile( pbxProjectPath );
+
+#if UNITY_2019_3_OR_NEWER
+				string targetGUID = pbxProject.GetUnityFrameworkTargetGuid();
+#else
+				string targetGUID = pbxProject.TargetGuidByName( PBXProject.GetUnityTargetName() );
 #endif
+
+				// Minimum supported iOS version on Unity 2018.1 and later is 8.0
+#if !UNITY_2018_1_OR_NEWER
+				if( !Settings.Instance.MinimumiOSTarget8OrAbove )
+				{
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-weak_framework Photos" );
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-weak_framework PhotosUI" );
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework AssetsLibrary" );
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework MobileCoreServices" );
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework ImageIO" );
+				}
+				else
+#endif
+				{
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-weak_framework PhotosUI" );
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework Photos" );
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework MobileCoreServices" );
+					pbxProject.AddBuildProperty( targetGUID, "OTHER_LDFLAGS", "-framework ImageIO" );
+				}
+
+				pbxProject.RemoveFrameworkFromProject( targetGUID, "Photos.framework" );
+
+				File.WriteAllText( pbxProjectPath, pbxProject.WriteToString() );
+
+				PlistDocument plist = new PlistDocument();
+				plist.ReadFromString( File.ReadAllText( plistPath ) );
+
+				PlistElementDict rootDict = plist.root;
+				rootDict.SetString( "NSPhotoLibraryUsageDescription", Settings.Instance.PhotoLibraryUsageDescription );
+				rootDict.SetString( "NSPhotoLibraryAddUsageDescription", Settings.Instance.PhotoLibraryAdditionsUsageDescription );
+				if( Settings.Instance.DontAskLimitedPhotosPermissionAutomaticallyOnIos14 )
+					rootDict.SetBoolean( "PHPhotoLibraryPreventAutomaticLimitedAccessAlert", true );
+
+				File.WriteAllText( plistPath, plist.WriteToString() );
+			}
+		}
+#endif
+	}
 }

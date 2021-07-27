@@ -1,0 +1,262 @@
+fileFormatVersion: 2
+guid: 87c40e07733db2e45a22d91f7e5a101a
+ModelImporter:
+  serializedVersion: 20200
+  internalIDToNameTable: []
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BORDERSMat
+    second: {fileID: 2100000, guid: b975f9a036bb3754a85fa36a98dcd806, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: COLUMNMat
+    second: {fileID: 2100000, guid: d1f18fca9040c4c43ba6521480ed8dca, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: CUBEMat
+    second: {fileID: 2100000, guid: 4bd0f2c73a640c846bfe0ce758c1ea4c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DOORMat
+    second: {fileID: 2100000, guid: 4cebb98809d0ffe4ebec13c36d7a0f47, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DOOR_GRIDMat
+    second: {fileID: 2100000, guid: c6a41fd2cb15df540b857efbb3b7e867, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: DRAINAGEMat
+    second: {fileID: 2100000, guid: 15ef21df9f083c84582c8db702098311, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FLOOR_COLOR_1Mat
+    second: {fileID: 2100000, guid: 1a8c488312b412b468826beeb1f4c8b2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: FLOOR_COLOR_2Mat
+    second: {fileID: 2100000, guid: 483776f397c70b74bbcf5f72c78be639, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GRIDMat
+    second: {fileID: 2100000, guid: 656e88e919cd26f4ba42bfc4493cfd2c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GRID_1Mat
+    second: {fileID: 2100000, guid: 02354c4466066634c9703636d33158b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GRID_2Mat
+    second: {fileID: 2100000, guid: 7a174b24cc9c24e4eac90aa2dc0c29ec, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: GRID_3Mat
+    second: {fileID: 2100000, guid: 3e1aa2004e0b4d4439b1a71d1cd1b114, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HOLDERSMat
+    second: {fileID: 2100000, guid: c3344de53185f0c4eba96e0eb2ebb9f7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HORIZONTALMat
+    second: {fileID: 2100000, guid: ee0f2c73b4710514cbbbbfbd90a817b5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: LOOPMat
+    second: {fileID: 2100000, guid: 4f840e7cabd9f594eaf45e6951f56ca9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MARKUPMat
+    second: {fileID: 2100000, guid: e3b54812a9e92ad4e96dbfb5670bc127, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: NUTSMat
+    second: {fileID: 2100000, guid: e7d97d944296418448c983e125ad9d1f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: RINGSMat
+    second: {fileID: 2100000, guid: 051727eee097ba64ea1d48802bfd6d8a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SHAFTMat
+    second: {fileID: 2100000, guid: fa82d72f6f671994c8df5c6892b17cb5, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SUPPORTMat
+    second: {fileID: 2100000, guid: 3780a966990e57b439ac7c6bb0e719fd, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SweepMat
+    second: {fileID: 2100000, guid: ac768943b6e729f4a8a2ffe424660f31, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: TorusMat
+    second: {fileID: 2100000, guid: 3e97f2c66ed349242bce5d631a062ca4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VERTICALMat
+    second: {fileID: 2100000, guid: 3d7b7271e4bdd414fb69b2ad204b2fd4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VERTICAL_1Mat
+    second: {fileID: 2100000, guid: e3c651e630166dc48b8da8b7b33e4579, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: VERT_1Mat
+    second: {fileID: 2100000, guid: 94b42382c7a493b4d9c4dea9809bb1d2, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: blue_gridMat
+    second: {fileID: 2100000, guid: 733dda1b185f397489908eae5bc28fba, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: holder_1Mat
+    second: {fileID: 2100000, guid: eb9921d9fd010cd47ad73f13cd7a5bbc, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: holder_2Mat
+    second: {fileID: 2100000, guid: 77616f77fbba2bc4f8d8c34ca9438895, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: red_gridMat
+    second: {fileID: 2100000, guid: 0b15ce70364e3ba4caf0118a6cce86fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: shield_housingMat
+    second: {fileID: 2100000, guid: 684975498e5112b4182a6c497a50b677, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: transparentMat
+    second: {fileID: 2100000, guid: aa825d7c389231f4f86c0a21fc47d96d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: white_gridMat
+    second: {fileID: 2100000, guid: c89efb3e9a1ab904588b60c5184750f1, type: 2}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 0
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

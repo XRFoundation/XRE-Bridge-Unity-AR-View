@@ -1,4 +1,4 @@
-﻿#if !UNITY_EDITOR && UNITY_ANDROID
+﻿#if UNITY_EDITOR || UNITY_ANDROID
 using UnityEngine;
 
 namespace NativeGalleryNamespace
@@ -68,7 +68,7 @@ namespace NativeGalleryNamespace
 			}
 			finally
 			{
-				Object.Destroy( callbackHelper );
+				Object.Destroy( callbackHelper.gameObject );
 			}
 		}
 
@@ -84,7 +84,7 @@ namespace NativeGalleryNamespace
 			}
 			finally
 			{
-				Object.Destroy( callbackHelper );
+				Object.Destroy( callbackHelper.gameObject );
 			}
 		}
 	}
