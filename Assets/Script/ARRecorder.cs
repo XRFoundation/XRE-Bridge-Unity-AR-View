@@ -53,12 +53,13 @@ public class ARRecorder : MonoBehaviour
 		cameraInput.Dispose();
 		lastVideoPath = await recorder.FinishWriting();
 		NativeGallery.SaveVideoToGallery(lastVideoPath, Application.productName,
-			"ScreenRecord_" + Application.productName+Random.Range(1000, 10000));
-		Screen.orientation = ScreenOrientation.AutoRotation;
+			"ScreenRecord_" + Application.productName + Random.Range(1000, 10000));
+
 		BehaviousController.Instance.Recording = false;
 		VideoPlayerManager.VideoPath = lastVideoPath;
 		VideoRecordingDone.Invoke();
 	}
+
 
 	public UnityEvent VideoRecordingDone;
 }

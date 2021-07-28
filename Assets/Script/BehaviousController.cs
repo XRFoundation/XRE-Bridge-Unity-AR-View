@@ -154,6 +154,11 @@ namespace Amar
 			}
 		}
 
+		public void SetScreenOrientation()
+		{
+			Screen.orientation = ScreenOrientation.AutoRotation;
+		}
+
 
 		public void RemoveMark()
 		{
