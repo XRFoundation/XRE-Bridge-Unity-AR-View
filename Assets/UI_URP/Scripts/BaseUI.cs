@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class BaseUI : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -19,5 +20,10 @@ public class BaseUI : MonoBehaviour
     public void OnClickLogout()
     {
 
+    }
+
+    public void OnClickBack(string nextScene)
+    {
+        SceneManager.LoadScene(nextScene);
     }
 }
